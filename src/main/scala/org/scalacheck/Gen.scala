@@ -284,6 +284,7 @@ object Gen {
 
     def pick(n: Int, l: List[(Int,Gen[T])]): Gen[T] = l match {
       case Nil => fail
+      case (_,g)::gs if Option(g).isEmpty => fail
       case (k,g)::gs => if(n <= k) g else pick(n-k, gs)
     }
 
